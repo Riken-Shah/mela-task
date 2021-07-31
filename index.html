@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Upload Image</title>
+    </head>
+    <body>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                flex-direction: column;
+                margin: 25px;
+                font-family: verdana;
+            }
+            h1 {
+                color: darkslategray;
+            }
+            input {
+                font-size: 12pt;
+            }
+            .image-wrapper {
+                display: flex;
+            }
+            #first {
+                margin-top: 30px;
+                width: 100px;
+                height: 100px;
+            }
+            #second {
+                width: 200px;
+                height: 200px;
+            }
+        </style>
+        <h1>Click here to upload image</h1>
+        <br />
+        <input type="file" multiple="false" accept="image/*" id="finput" />
+        <img src="" id="first" />
+        <span>100x100px</span>
+        <img src="" id="second" />
+        <span>200x200px</span>
+    </body>
+    <script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+    ></script>
+    <script src="https://unpkg.com/blob-util@2.0.2/dist/blob-util.js"></script>
+    <script>
+        document
+            .getElementById("finput")
+            .addEventListener("change", function () {
+                if (this.files.length) {
+                    const fileReader = new FileReader();
+                    const file = this.files[0];
+                    fileReader.onloadend = function (e) {
+                        const arrayBuffer = e.target.result;
+                        const blob = blobUtil.arrayBufferToBlob(
+                            arrayBuffer,
+                            file.type
+                        );
+                        const data = new FormData();
+                        data.append(
+                            "image",
+                            blob,
+                            "image." + file.type.replace("image/", "")
+                        );
+                        $.ajax({
+                            url: "/upload",
+                            method: "POST",
+                            async: false,
+                            processData: false,
+                            contentType: false,
+                            data,
+                            success: (urls) => {
+                                if (urls) {
+                                    setTimeout(() => {
+                                        $("#first").attr("src", urls[0]);
+                                        $("#second").attr("src", urls[1]);
+                                    }, 1000);
+                                }
+                            },
+                            error: (err) => {
+                                console.error(err.responseText);
+                                alert("See the console for the error!");
+                            },
+                        });
+                    };
+                    fileReader.readAsArrayBuffer(file);
+                }
+            });
+    </script>
+</html>

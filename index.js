@@ -38,7 +38,7 @@ const port = process.env.PORT || "8000";
 
 // Routes Definitions
 app.get("/", (req, res) => {
-    res.status(200).send("Hello World!");
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.post(
