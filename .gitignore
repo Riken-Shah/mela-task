@@ -21,7 +21,9 @@ package-lock.json
 
 # Images
 uploads/*
+!uploads/.gitkeep
 processed/*
+!processed/.gitkeep
 
 # Env
 .env
