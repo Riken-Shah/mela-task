@@ -69,7 +69,7 @@ app.post(
             res.status(500).send({ error: "Something went wrong. Try again!" });
         }
     },
-    (error, _, res) => {
+    (error, _, res, next) => {
         res.status(400).send({ error: error.message });
     }
 );
