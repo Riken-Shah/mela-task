@@ -19,6 +19,9 @@ package-lock.json
 *.log
 *.gz
 
+# Images
+uploads/*
+processed/*
 
 # Coveralls
 coverage
