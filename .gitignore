@@ -23,6 +23,12 @@ package-lock.json
 uploads/*
 processed/*
 
+# Env
+.env
+
+# GCP
+cloud/keys.json
+
 # Coveralls
 coverage
 
