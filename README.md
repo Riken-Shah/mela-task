@@ -19,6 +19,7 @@ The GET `/` serve `index.html` if you want to use UI to add an image and see the
 The POST `/uploads` is the main endpoint which processes the image and responds with uploaded URLs.
 
 Some notes: 
+- Attach image with `image` key.
 - Maximum upload limit is 15MB.
 - Supported file type are `png`, `jpg`, `jpeg`, `bmp`, and `tiff`.
 
